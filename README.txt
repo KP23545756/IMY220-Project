@@ -26,7 +26,8 @@ To stop:
 
 Website guide:
 
-http://localhost:5173 is the login/sign-up page
+http://localhost:5173 is the login/sign-up page (it does not automatically
+redirect to home upon successful login/sign-in yet)
 
 To navigate to home add /home to the url (http://localhost:5173/home) 
 
