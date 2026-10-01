@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom'
 import LoginForm from '../components/LoginForm.jsx'
 import SignupForm from '../components/SignupForm.jsx'
 import heroImage from '../assets/splashHero.avif'
+import logo from '../assets/Logo.png'
 
 function Splash() {
   const [searchParams] = useSearchParams()
@@ -36,9 +37,12 @@ function Splash() {
       <div className="relative z-10 flex flex-col min-h-screen p-6">
 
         {/* Headline */}
-        <div className="mt-16 ml-[43%]">
-          <h1 className="text-6xl font-bold m-0">Nature, Noticed</h1>
-          <p className="text-lg font-semibold mt-2">Share the moments most would walk past</p>
+        <div className="mt-16 ml-[40%]">
+          <div className="flex items-center gap-4">
+            <img src={logo} alt="Nature, Noticed logo" className="w-24 h-24" />
+            <h1 className="text-6xl font-bold m-0">Nature, Noticed</h1>
+          </div>
+          <p className="text-lg font-semibold mt-2 ml-[5%]">Share the moments most would walk past</p>
         </div>
 
         {/* Forms + toggle */}

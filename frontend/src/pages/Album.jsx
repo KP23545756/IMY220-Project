@@ -45,7 +45,10 @@ function Album() {
         body: JSON.stringify(editData)
       })
       const data = await res.json()
-      if (res.ok) { setAlbum(data); setIsEditing(false) }
+      if (res.ok) {
+        setAlbum(prev => ({ ...prev, name: data.name, description: data.description, tags: data.tags }))
+        setIsEditing(false)
+      }
     } catch (err) {
       console.error('Edit failed:', err)
     }
@@ -70,8 +73,9 @@ function Album() {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` }
       })
-      const data = await res.json()
-      if (res.ok) setAlbum(data)
+      if (res.ok) {
+        setAlbum(prev => ({ ...prev, posts: prev.posts.filter(p => p._id !== postId) }))
+      }
     } catch (err) {
       console.error('Remove post failed:', err)
     }

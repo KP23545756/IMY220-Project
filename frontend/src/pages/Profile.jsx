@@ -8,7 +8,7 @@ const INTERESTS = ['Birds', 'Trees', 'Rainforest', 'Macro', 'Landscape', 'Wildli
 
 function Profile() {
   const { id } = useParams()
-  const { user, token } = useAuth()
+  const { user, token, logout } = useAuth()
   const navigate = useNavigate()
   const [profile, setProfile] = useState(null)
   const [posts, setPosts] = useState([])
@@ -139,6 +139,22 @@ function Profile() {
     }
   }
 
+  const handleDeleteProfile = async () => {
+    if (!window.confirm('Delete your account? Your posts, albums and comments will be removed. This cannot be undone.')) return
+    try {
+      const res = await fetch(`/api/users/${id}`, {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${token}` }
+      })
+      if (res.ok) {
+        logout()
+        navigate('/')
+      }
+    } catch (err) {
+      console.error('Delete profile failed:', err)
+    }
+  }
+
   const toggleInterest = (interest) => {
     setEditData(prev => ({
       ...prev,
@@ -225,13 +241,21 @@ function Profile() {
           </div>
 
           <div className="ml-auto flex gap-2">
-           {isOwnProfile ? (
-            <button
-              onClick={() => setIsEditing(!isEditing)}
-              className="border border-white text-white rounded-full px-4 py-1 text-sm bg-transparent hover:bg-white hover:text-black transition-colors cursor-pointer"
-            >
-              {isEditing ? 'Cancel' : 'Edit Profile'}
-            </button>
+            {isOwnProfile ? (
+              <>
+                <button
+                  onClick={() => setIsEditing(!isEditing)}
+                  className="border border-white text-white rounded-full px-4 py-1 text-sm bg-transparent hover:bg-white hover:text-black transition-colors cursor-pointer"
+                >
+                  {isEditing ? 'Cancel' : 'Edit Profile'}
+                </button>
+                <button
+                  onClick={handleDeleteProfile}
+                  className="border border-red-400 text-red-400 rounded-full px-4 py-1 text-sm bg-transparent hover:bg-red-400 hover:text-white transition-colors cursor-pointer"
+                >
+                  Delete Profile
+                </button>
+              </>
           ) : isFriend ? (
             <button
               onClick={handleUnfriend}

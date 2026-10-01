@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  h1, h2, h3 {
+    @apply font-display;
+  }
+}
+
 .page-bg {
   background-image: linear-gradient(rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.95)), url('./assets/home-bg.avif');
   background-size: cover;

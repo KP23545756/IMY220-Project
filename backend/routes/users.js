@@ -1,6 +1,9 @@
 import express from 'express'
 import User from '../models/User.js'
 import { protect } from '../middleware/auth.js'
+import Post from '../models/Post.js'
+import Comment from '../models/Comment.js'
+import Album from '../models/Album.js'
 
 const router = express.Router()
 
@@ -31,6 +34,29 @@ router.put('/:id', protect, async (req, res) => {
       { new: true }
     ).select('-password')
     res.json(updated)
+  } catch (err) {
+    res.status(500).json({ message: err.message })
+  }
+})
+
+// Delete own account
+router.delete('/:id', protect, async (req, res) => {
+  try {
+    const id = req.params.id
+    if (req.user.id !== id)
+      return res.status(403).json({ message: 'Not authorised' })
+
+    const postIds = (await Post.find({ author: id }).select('_id')).map(p => p._id)
+
+    await Comment.deleteMany({ $or: [{ author: id }, { post: { $in: postIds } }] })
+    await Post.deleteMany({ author: id })
+    await Post.updateMany({}, { $pull: { likes: id } })
+    await Album.deleteMany({ author: id })
+    await Album.updateMany({}, { $pull: { posts: { $in: postIds } } })
+    await User.updateMany({}, { $pull: { friends: id, friendRequests: id } })
+    await User.findByIdAndDelete(id)
+
+    res.json({ message: 'Account deleted' })
   } catch (err) {
     res.status(500).json({ message: err.message })
   }

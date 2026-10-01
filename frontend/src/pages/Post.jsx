@@ -97,7 +97,10 @@ function Post() {
         body: JSON.stringify({ description: editDescription, tags: editTags })
       })
       const data = await res.json()
-      if (res.ok) { setPost(data); setIsEditing(false) }
+      if (res.ok) {
+        setPost(prev => ({ ...prev, description: data.description, tags: data.tags }))
+        setIsEditing(false)
+      }
     } catch (err) {
       console.error('Edit failed:', err)
     }

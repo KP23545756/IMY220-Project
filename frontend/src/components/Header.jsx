@@ -13,7 +13,7 @@ function Header() {
   }
 
   return (
-    <header className="flex items-center justify-between px-6 py-3 border-b border-neutral-600">
+    <header className="flex items-center justify-between px-6 py-3 border-b border-neutral-600 font-display">
       <Link to="/home" className="flex items-center gap-3 no-underline text-white">
         <img src={logo} alt="Nature, Noticed logo" className="w-10 h-10 rounded-full object-cover" />
         <span className="font-semibold text-white">Nature, Noticed</span>
