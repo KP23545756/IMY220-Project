@@ -1,5 +1,6 @@
 import { useState } from 'react'
 
+// Contains all the form information for editing a post.
 function EditPost({ post }) {
   const [description, setDescription] = useState(post?.description || '')
 

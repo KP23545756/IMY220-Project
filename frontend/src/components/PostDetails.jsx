@@ -1,5 +1,8 @@
 import ProfilePreview from './ProfilePreview.jsx'
 
+// Contains all required information on a single post. Structured to
+// match the wireframe: account row (avatar, name, region, date/time) at
+// the top, a description box below it, tags, then a likes/comments row.
 function PostDetails({ post }) {
   return (
     <div className="post-details">

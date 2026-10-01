@@ -1,39 +1,29 @@
-Nature, Noticed - Deliverable 1
-
-Project structure:
-
-frontend/   Vite React application (src/components, src/pages, src/assets)
-backend/    Express server with stubbed sign-up / sign-in endpoints
-
-Docker run:
-
-From the project root (the folder containing /frontend,
-/backend) run:
-
-	docker compose up --build
-
-This builds and starts both containers together:
-- backend  -> http://localhost:5000
-- frontend -> http://localhost:5173
- 
-Open http://localhost:5173 in your browser once both containers show
-as running. 
-
-To stop:
- 
-	docker compose down
-
-
-Website guide:
-
-http://localhost:5173 is the login/sign-up page (it does not automatically
-redirect to home upon successful login/sign-in yet)
-
-To navigate to home add /home to the url (http://localhost:5173/home) 
-
-and the rest of the project can be navigated from there.
-Should you choose to go back to login/sign-up, you will
-have to re-enter the home web address in the url to get back.
+Nature, Noticed - Deliverable 2
+================================
 
 GitHub repository: https://github.com/KP23545756/IMY220-Project
 
+MongoDB Atlas connection string:
+MONGO_URI=mongodb+srv://Kyle:Kleptonico0507@cluster0.0jcji5o.mongodb.net/nature-noticed?appName=Cluster0
+
+Running with Docker (from the project root)
+--------------------------------------------
+Build and start everything:
+    docker compose up --build
+
+Then open http://localhost:5173
+
+Stop and remove the containers:
+    docker compose down
+
+Test logins (password for all: password123)
+    maya@example.com
+    jorge@example.com
+
+Equivalent manual commands
+--------------------------
+    docker build -t nature-noticed-backend ./backend
+    docker build -t nature-noticed-frontend ./frontend
+    docker network create nn-net
+    docker run -d --name backend --network nn-net -p 5000:5000 --env-file ./backend/.env nature-noticed-backend
+    docker run -d --name frontend --network nn-net -p 5173:5173 -e VITE_API_PROXY_TARGET=http://backend:5000 nature-noticed-frontend

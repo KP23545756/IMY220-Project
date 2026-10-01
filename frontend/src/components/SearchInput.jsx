@@ -1,21 +1,19 @@
 import { useState } from 'react'
 
-// Handles search input. Actual search functionality is not implemented yet.
 function SearchInput() {
   const [query, setQuery] = useState('')
 
   const handleChange = (e) => {
     setQuery(e.target.value)
-    // TODO: implement real search (filter/fetch) in a later deliverable
   }
 
   return (
     <input
       type="text"
-      className="search-input"
       placeholder="Search"
       value={query}
       onChange={handleChange}
+      className="bg-neutral-800 text-white border border-neutral-600 rounded-full px-4 py-2 text-sm w-48 focus:outline-none focus:border-green-400"
     />
   )
 }

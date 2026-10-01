@@ -4,7 +4,8 @@ import Post2 from '../assets/post2-HansJurgenMager.avif'
 import Post3 from '../assets/post3_AbhijitSinha.avif'
 import Post4 from '../assets/post4_KarMingMoo.avif'
 
-// TODO: replace with the actual user's posts
+// TODO: replace with the actual user's posts, fetched from the backend
+// using the profile's :id, once that functionality exists.
 const dummyUserPosts = [
   { id: 1, title: 'Post', image: Post1 },
   { id: 2, title: 'Post', image: Post2 },
@@ -12,6 +13,8 @@ const dummyUserPosts = [
   { id: 4, title: 'Post', image: Post4 },
 ]
 
+// Lists all the posts that a user has created, in the same masonry
+// layout as the Feed.
 function UserPosts() {
   return (
     <div className="feed-grid">

@@ -1,5 +1,9 @@
 import { useState } from 'react'
 
+// Contains all the form information for editing the user's profile.
+// Structured to match the wireframe: title top, avatar + "Set Profile
+// Picture" centered, then a two-column row below it - username/bio/region
+// pills on the left, interests dropdown + selected tags on the right.
 function EditProfile() {
   const [username, setUsername] = useState('')
   const [bio, setBio] = useState('')

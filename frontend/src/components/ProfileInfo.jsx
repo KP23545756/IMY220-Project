@@ -1,3 +1,7 @@
+// Contains basic profile information for the currently viewed profile.
+// Structured to match the wireframe: banner behind, avatar overlapping
+// the bottom-left of the banner, name/tabs top-right of the banner,
+// tags + bio below.
 function ProfileInfo({ profile }) {
   return (
     <div className="profile-info">

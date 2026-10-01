@@ -1,5 +1,7 @@
 import { useState } from 'react'
 
+// Provides a way to create a post. Used on the Profile page (per spec);
+// feel free to reuse it anywhere else a "new post" action makes sense.
 function CreatePost() {
   const [description, setDescription] = useState('')
   const [tags, setTags] = useState('')

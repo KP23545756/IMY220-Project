@@ -1,16 +1,25 @@
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 function ProfilePreview({ profile }) {
+  const navigate = useNavigate()
+
   return (
-    <Link to={`/profile/${profile?.id ?? 1}`} className="profile-preview">
+    <div
+      className="profile-preview"
+      onClick={() => navigate(`/profile/${profile?._id || profile?.id}`)}
+      style={{ cursor: 'pointer' }}
+    >
       <div className="avatar-placeholder small">
-        {/* TODO: replace with the user's actual profile picture */}
+        {profile?.profilePicture
+          ? <img src={profile.profilePicture} alt="avatar" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%' }} />
+          : profile?.username?.[0]?.toUpperCase()
+        }
       </div>
       <div>
-        <p className="profile-preview-name">{profile?.name || 'account name'}</p>
-        <p className="profile-preview-region">{profile?.region || 'Region'}</p>
+        <p className="profile-preview-name">{profile?.username || 'Unknown'}</p>
+        <p className="profile-preview-region">{profile?.region || ''}</p>
       </div>
-    </Link>
+    </div>
   )
 }
 
