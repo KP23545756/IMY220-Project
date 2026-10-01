@@ -4,7 +4,7 @@ Nature, Noticed - Deliverable 2
 GitHub repository: https://github.com/KP23545756/IMY220-Project
 
 MongoDB Atlas connection string:
-MONGO_URI=mongodb+srv://Kyle:Kleptonico0507@cluster0.0jcji5o.mongodb.net/nature-noticed?appName=Cluster0
+Excluded for safety on public github
 
 Running with Docker (from the project root)
 --------------------------------------------
