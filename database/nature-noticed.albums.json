@@ -1,0 +1,102 @@
+[{
+  "_id": {
+    "$oid": "6abed39ddb6c03e21f0bc352"
+  },
+  "name": "Vivid memories",
+  "description": "The landscapes I've explored",
+  "tags": [
+    "Landscape",
+    "Night Sky"
+  ],
+  "author": {
+    "$oid": "6abe202f352b0fe90cc50cb6"
+  },
+  "posts": [
+    {
+      "$oid": "6abecf56d6d1aeb16a85ac7c"
+    }
+  ],
+  "createdAt": {
+    "$date": "2026-10-01T21:41:49.024Z"
+  },
+  "updatedAt": {
+    "$date": "2026-10-01T23:44:29.747Z"
+  },
+  "__v": 1
+},
+{
+  "_id": {
+    "$oid": "6abef0cea94bbc24c4271c99"
+  },
+  "name": "Morning walks",
+  "description": "Things I captured during my walks",
+  "tags": [
+    "Birds",
+    "Landscape"
+  ],
+  "author": {
+    "$oid": "6abe202f352b0fe90cc50cb6"
+  },
+  "posts": [
+    {
+      "$oid": "6abe21eed6d1aeb16a85ac79"
+    }
+  ],
+  "createdAt": {
+    "$date": "2026-10-01T23:46:22.159Z"
+  },
+  "updatedAt": {
+    "$date": "2026-10-01T23:46:33.151Z"
+  },
+  "__v": 1
+},
+{
+  "_id": {
+    "$oid": "6abf4944474f70773d62db4a"
+  },
+  "name": "night walks",
+  "description": "hiking during the night",
+  "tags": [
+    "Trees",
+    "Rainforest"
+  ],
+  "author": {
+    "$oid": "6abe2046352b0fe90cc50cb7"
+  },
+  "posts": [
+    {
+      "$oid": "6abecf56d6d1aeb16a85ac7c"
+    }
+  ],
+  "createdAt": {
+    "$date": "2026-10-02T06:03:48.710Z"
+  },
+  "updatedAt": {
+    "$date": "2026-10-02T06:03:56.051Z"
+  },
+  "__v": 1
+},
+{
+  "_id": {
+    "$oid": "6ae1e8dd8ad73328c41de91e"
+  },
+  "name": "Frogs",
+  "description": "Frogs",
+  "tags": [
+    "Wildlife"
+  ],
+  "author": {
+    "$oid": "6abf48d4474f70773d62db47"
+  },
+  "posts": [
+    {
+      "$oid": "6abe2305d6d1aeb16a85ac7a"
+    }
+  ],
+  "createdAt": {
+    "$date": "2026-10-28T12:21:49.684Z"
+  },
+  "updatedAt": {
+    "$date": "2026-10-28T12:21:49.684Z"
+  }
+}]

@@ -1,0 +1,34 @@
+[{
+  "_id": {
+    "$oid": "6abee6f298ff0359400ace88"
+  },
+  "text": "OMG THATS SO COOL",
+  "author": {
+    "$oid": "6abe202f352b0fe90cc50cb6"
+  },
+  "post": {
+    "$oid": "6abe2305d6d1aeb16a85ac7a"
+  },
+  "createdAt": {
+    "$date": "2026-10-01T23:04:18.491Z"
+  },
+  "updatedAt": {
+    "$date": "2026-10-01T23:04:18.491Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6ae3185dbef6b4a2f4f7742e"
+  },
+  "text": "I could use some hot chocolate under that sky",
+  "author": {
+    "$oid": "6abe202f352b0fe90cc50cb6"
+  },
+  "post": {
+    "$oid": "6ae27679a986a6e2f0107b11"
+  },
+  "createdAt": {
+    "$date": "2026-10-29T09:56:45.930Z"
+  }
+}]

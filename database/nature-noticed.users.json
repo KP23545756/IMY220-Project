@@ -1,0 +1,222 @@
+[{
+  "_id": {
+    "$oid": "6abe202f352b0fe90cc50cb6"
+  },
+  "username": "maya",
+  "email": "maya@example.com",
+  "password": "$2b$10$O8UTO/AUa3srsfrfwjtlA.mnbMsOwQka6OA8uPpW295.mV0ZTW6oy",
+  "bio": "exploring",
+  "region": "London",
+  "interests": [
+    "Landscape",
+    "Night Sky"
+  ],
+  "profilePicture": "https://images.pexels.com/photos/39161400/pexels-photo-39161400.jpeg",
+  "banner": "https://images.pexels.com/photos/14746876/pexels-photo-14746876.jpeg",
+  "friends": [
+    {
+      "$oid": "6abe2046352b0fe90cc50cb7"
+    }
+  ],
+  "friendRequests": [],
+  "isAdmin": false,
+  "createdAt": {
+    "$date": "2026-10-01T08:56:15.505Z"
+  },
+  "updatedAt": {
+    "$date": "2026-10-29T10:08:08.983Z"
+  },
+  "__v": 1
+},
+{
+  "_id": {
+    "$oid": "6abe2046352b0fe90cc50cb7"
+  },
+  "username": "jorge",
+  "email": "jorge@example.com",
+  "password": "$2b$10$aMJ9vlcUzJRZttbOvwQD3uCrbIOUhaFtvYRlwN1YimxoTfiDvkmm6",
+  "bio": "",
+  "region": "",
+  "interests": [],
+  "profilePicture": "",
+  "banner": "",
+  "friends": [
+    {
+      "$oid": "6abe202f352b0fe90cc50cb6"
+    },
+    {
+      "$oid": "6abf48d4474f70773d62db47"
+    }
+  ],
+  "friendRequests": [],
+  "isAdmin": false,
+  "createdAt": {
+    "$date": "2026-10-01T08:56:38.824Z"
+  },
+  "updatedAt": {
+    "$date": "2026-10-02T06:02:55.397Z"
+  },
+  "__v": 4
+},
+{
+  "_id": {
+    "$oid": "6abf48d4474f70773d62db47"
+  },
+  "username": "sally",
+  "email": "sally@example.com",
+  "password": "$2b$10$f/vN.AMvjIWETh4E5nyS2uxpMNws6qcZBzyn5WQCEAbAzIlRZOOV.",
+  "bio": "Sleeping",
+  "region": "London",
+  "interests": [
+    "Trees",
+    "Landscape"
+  ],
+  "profilePicture": "",
+  "banner": "",
+  "friends": [
+    {
+      "$oid": "6abe2046352b0fe90cc50cb7"
+    }
+  ],
+  "friendRequests": [],
+  "isAdmin": false,
+  "createdAt": {
+    "$date": "2026-10-02T06:01:56.677Z"
+  },
+  "updatedAt": {
+    "$date": "2026-10-02T06:02:55.434Z"
+  },
+  "__v": 1
+},
+{
+  "_id": {
+    "$oid": "6ae274eaa986a6e2f0107b07"
+  },
+  "username": "priya",
+  "email": "priya@example.com",
+  "password": "$2a$10$Eee31J8XfL9xUBZ2GDBB0.qGWe3LW4tAI0fSLSFZtNnFpcwuKeiMq",
+  "bio": "",
+  "region": "",
+  "interests": [],
+  "profilePicture": "",
+  "banner": "",
+  "friends": [],
+  "friendRequests": [],
+  "isAdmin": false,
+  "createdAt": {
+    "$date": "2026-10-28T22:19:22.984Z"
+  },
+  "updatedAt": {
+    "$date": "2026-10-28T22:19:22.984Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6ae274f7a986a6e2f0107b08"
+  },
+  "username": "luca",
+  "email": "luca@example.com",
+  "password": "$2a$10$Cc6iHt.K7aRUnrm4x6q6JuC91osqOyeLMR.5ku0J3G8CQR/hkwXu6",
+  "bio": "",
+  "region": "",
+  "interests": [],
+  "profilePicture": "",
+  "banner": "",
+  "friends": [],
+  "friendRequests": [],
+  "isAdmin": false,
+  "createdAt": {
+    "$date": "2026-10-28T22:19:35.350Z"
+  },
+  "updatedAt": {
+    "$date": "2026-10-28T22:19:35.350Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6ae274fda986a6e2f0107b09"
+  },
+  "username": "aisha",
+  "email": "aisha@example.com",
+  "password": "$2a$10$U8ujQNxS06gqenuksG9FSOo8kPgPu2dQX.jjfmWcMu/vWX97sh4tS",
+  "bio": "",
+  "region": "",
+  "interests": [],
+  "profilePicture": "",
+  "banner": "",
+  "friends": [],
+  "friendRequests": [],
+  "isAdmin": false,
+  "createdAt": {
+    "$date": "2026-10-28T22:19:41.518Z"
+  },
+  "updatedAt": {
+    "$date": "2026-10-28T22:19:41.518Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6ae27503a986a6e2f0107b0a"
+  },
+  "username": "ben",
+  "email": "ben@example.com",
+  "password": "$2a$10$9v1jM69NAFFTqWQO6Huju.t1lrYQnnWh64tK7N2M7klidt2BMfsJe",
+  "bio": "",
+  "region": "",
+  "interests": [],
+  "profilePicture": "",
+  "banner": "",
+  "friends": [],
+  "friendRequests": [],
+  "isAdmin": false,
+  "createdAt": {
+    "$date": "2026-10-28T22:19:47.288Z"
+  },
+  "updatedAt": {
+    "$date": "2026-10-28T22:19:47.288Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6ae27508a986a6e2f0107b0b"
+  },
+  "username": "admin",
+  "email": "admin@example.com",
+  "password": "$2a$10$YCgo1/DgQXvAta1VN3nryuE0eMHTPgyJfFIEa0e8m5giWRZkxRqwa",
+  "bio": "",
+  "region": "",
+  "interests": [],
+  "profilePicture": "",
+  "banner": "",
+  "friends": [],
+  "friendRequests": [],
+  "isAdmin": true,
+  "createdAt": {
+    "$date": "2026-10-28T22:19:52.443Z"
+  },
+  "updatedAt": {
+    "$date": "2026-10-28T22:19:52.443Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6ae3154dbef6b4a2f4f7742d"
+  },
+  "username": "steven",
+  "email": "steven@example.com",
+  "password": "$2a$10$nct1VtRx7gOzI.Mgs/ByvO0vYcXo.bKmNWw7vKozvZCRn3Zl93oGK",
+  "bio": "",
+  "region": "",
+  "interests": [],
+  "profilePicture": "",
+  "banner": "",
+  "friends": [],
+  "friendRequests": [],
+  "isAdmin": false,
+  "createdAt": {
+    "$date": "2026-10-29T09:43:41.455Z"
+  },
+  "updatedAt": {
+    "$date": "2026-10-29T09:43:41.455Z"
+  }
+}]
