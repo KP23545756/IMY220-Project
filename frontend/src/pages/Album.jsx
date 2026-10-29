@@ -131,7 +131,11 @@ function Album() {
             )}
             <div className="flex flex-wrap gap-2">
               {album.tags?.map(tag => (
-                <span key={tag} className="border border-white rounded-full px-3 py-1 text-xs text-white">
+                <span
+                  key={tag}
+                  onClick={() => navigate(`/search?q=${encodeURIComponent(tag)}`)}
+                  className="border border-white rounded-full px-3 py-1 text-xs text-white cursor-pointer hover:bg-white hover:text-black transition-colors"
+                >
                   {tag}
                 </span>
               ))}

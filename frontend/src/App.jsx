@@ -6,6 +6,8 @@ import Post from './pages/Post.jsx'
 import CreatePost from './pages/CreatePost.jsx'
 import Album from './pages/Album.jsx'
 import CreateAlbum from './pages/CreateAlbum.jsx'
+import Search from './pages/Search.jsx'
+import Admin from './pages/Admin.jsx'
 import { useAuth } from './context/AuthContext.jsx'
 
 function ProtectedRoute({ children }) {
@@ -37,6 +39,12 @@ function App() {
         } />
         <Route path="/create-album" element={
           <ProtectedRoute><CreateAlbum /></ProtectedRoute>
+        } />
+        <Route path="/search" element={
+          <ProtectedRoute><Search /></ProtectedRoute>
+        } />
+        <Route path="/admin" element={
+          <ProtectedRoute><Admin /></ProtectedRoute>
         } />
       </Routes>
     </BrowserRouter>

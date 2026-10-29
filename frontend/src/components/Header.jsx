@@ -22,6 +22,7 @@ function Header() {
       <nav className="flex gap-6">
         <Link to="/home" className="text-white no-underline font-semibold hover:text-green-400">Home</Link>
         {user && <Link to={`/profile/${user.id}`} className="text-white no-underline font-semibold hover:text-green-400">Profile</Link>}
+        {user?.isAdmin && <Link to="/admin" className="text-white no-underline font-semibold hover:text-red-400">Admin</Link>}
         <Link to="/create-post" className="text-white no-underline font-semibold hover:text-green-400">+ Post</Link>
         <Link to="/create-album" className="text-white no-underline font-semibold hover:text-green-400">+ Album</Link>
       </nav>

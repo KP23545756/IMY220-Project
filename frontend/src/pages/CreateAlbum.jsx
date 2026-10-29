@@ -56,8 +56,9 @@ function CreateAlbum() {
         {serverError && <span className="text-red-400 text-sm">{serverError}</span>}
 
         <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-4 bg-neutral-800 rounded-xl p-6">
-          <label className="text-sm font-semibold">Album Name</label>
+          <label htmlFor="album-name" className="text-sm font-semibold">Album Name</label>
           <input
+            id="album-name"
             value={name}
             onChange={e => setName(e.target.value)}
             placeholder="e.g. Morning Walks"
@@ -65,8 +66,9 @@ function CreateAlbum() {
           />
           {errors.name && <span className="text-red-400 text-xs">{errors.name}</span>}
 
-          <label className="text-sm font-semibold">Description</label>
+          <label htmlFor="album-description" className="text-sm font-semibold">Description</label>
           <textarea
+            id="album-description"
             value={description}
             onChange={e => setDescription(e.target.value)}
             placeholder="What is this album about?"

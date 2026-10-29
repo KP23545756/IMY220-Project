@@ -53,16 +53,18 @@ function SignupForm() {
     <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-3 w-72">
       {serverError && <span className="text-red-400 text-sm">{serverError}</span>}
 
-      <label className="text-white text-sm font-semibold">Username</label>
+      <label htmlFor="signup-username" className="text-white text-sm font-semibold">Username</label>
       <input
+        id="signup-username"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
         className="bg-transparent border border-white rounded-full px-4 py-2 text-white text-sm focus:outline-none focus:border-green-400"
       />
       {errors.username && <span className="text-red-400 text-xs">{errors.username}</span>}
 
-      <label className="text-white text-sm font-semibold">Email address</label>
+      <label htmlFor="signup-email" className="text-white text-sm font-semibold">Email address</label>
       <input
+        id="signup-email"
         type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
@@ -70,8 +72,9 @@ function SignupForm() {
       />
       {errors.email && <span className="text-red-400 text-xs">{errors.email}</span>}
 
-      <label className="text-white text-sm font-semibold">Password</label>
+      <label htmlFor="signup-password" className="text-white text-sm font-semibold">Password</label>
       <input
+        id="signup-password"
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
@@ -79,8 +82,9 @@ function SignupForm() {
       />
       {errors.password && <span className="text-red-400 text-xs">{errors.password}</span>}
 
-      <label className="text-white text-sm font-semibold">Confirm Password</label>
+      <label htmlFor="signup-confirm" className="text-white text-sm font-semibold">Confirm Password</label>
       <input
+        id="signup-confirm"
         type="password"
         value={confirmPassword}
         onChange={(e) => setConfirmPassword(e.target.value)}

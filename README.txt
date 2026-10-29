@@ -3,9 +3,6 @@ Nature, Noticed - Deliverable 2
 
 GitHub repository: https://github.com/KP23545756/IMY220-Project
 
-MongoDB Atlas connection string:
-Excluded for safety on public github
-
 Running with Docker (from the project root)
 --------------------------------------------
 Build and start everything:

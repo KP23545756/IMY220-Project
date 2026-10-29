@@ -17,7 +17,15 @@ function PostPreview({ post }) {
         )}
         <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-3">
           <p className="text-white text-xs m-0 line-clamp-2">{post.description}</p>
-          <p className="text-neutral-300 text-xs m-0 mt-1">by {post.author?.username}</p>
+          <div className="flex items-center gap-2 mt-1">
+            <div className="w-5 h-5 rounded-full bg-neutral-700 flex items-center justify-center text-white text-xs flex-shrink-0 overflow-hidden">
+              {post.author?.profilePicture
+                ? <img src={post.author.profilePicture} alt={post.author.username} className="w-full h-full object-cover" />
+                : post.author?.username?.[0]?.toUpperCase()
+              }
+            </div>
+            <p className="text-neutral-300 text-xs m-0">{post.author?.username}</p>
+          </div>
         </div>
       </div>
     </Link>

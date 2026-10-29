@@ -38,7 +38,9 @@ function Profile() {
           username: userData.username,
           bio: userData.bio,
           region: userData.region,
-          interests: userData.interests
+          interests: userData.interests,
+          profilePicture: userData.profilePicture || '',
+          banner: userData.banner || ''
         })
       } catch (err) {
         setError('Something went wrong')
@@ -300,22 +302,41 @@ function Profile() {
             className="bg-neutral-800 rounded-xl p-6 mb-6 grid grid-cols-2 gap-6"
           >
             <div className="flex flex-col gap-3">
-              <label className="text-sm font-semibold">Username</label>
+              <label htmlFor="edit-username" className="text-sm font-semibold">Username</label>
               <input
+                id="edit-username"
                 value={editData.username}
                 onChange={e => setEditData(p => ({ ...p, username: e.target.value }))}
                 className="bg-neutral-700 border border-neutral-600 rounded-full px-4 py-2 text-white text-sm focus:outline-none focus:border-green-400"
               />
-              <label className="text-sm font-semibold">Bio</label>
+              <label htmlFor="edit-bio" className="text-sm font-semibold">Bio</label>
               <input
+                id="edit-bio"
                 value={editData.bio}
                 onChange={e => setEditData(p => ({ ...p, bio: e.target.value }))}
                 className="bg-neutral-700 border border-neutral-600 rounded-full px-4 py-2 text-white text-sm focus:outline-none focus:border-green-400"
               />
-              <label className="text-sm font-semibold">Region</label>
+              <label htmlFor="edit-region" className="text-sm font-semibold">Region</label>
               <input
+                id="edit-region"
                 value={editData.region}
                 onChange={e => setEditData(p => ({ ...p, region: e.target.value }))}
+                className="bg-neutral-700 border border-neutral-600 rounded-full px-4 py-2 text-white text-sm focus:outline-none focus:border-green-400"
+              />
+              <label htmlFor="edit-profilepic" className="text-sm font-semibold">Profile Picture URL</label>
+              <input
+                id="edit-profilepic"
+                value={editData.profilePicture || ''}
+                onChange={e => setEditData(p => ({ ...p, profilePicture: e.target.value }))}
+                placeholder="Paste a direct image URL..."
+                className="bg-neutral-700 border border-neutral-600 rounded-full px-4 py-2 text-white text-sm focus:outline-none focus:border-green-400"
+              />
+              <label htmlFor="edit-banner" className="text-sm font-semibold">Banner URL</label>
+              <input
+                id="edit-banner"
+                value={editData.banner || ''}
+                onChange={e => setEditData(p => ({ ...p, banner: e.target.value }))}
+                placeholder="Paste a direct image URL..."
                 className="bg-neutral-700 border border-neutral-600 rounded-full px-4 py-2 text-white text-sm focus:outline-none focus:border-green-400"
               />
             </div>
@@ -381,8 +402,8 @@ function Profile() {
             </div>
           )}
 
-        {/* Friends */}
-        {profile.friends?.length > 0 && (
+        {/* Friends - only visible to own profile or friends */}
+        {(isOwnProfile || isFriend) && profile.friends?.length > 0 && (
           <div className="mb-6">
             <h3 className="text-white font-semibold mb-3">Friends</h3>
             <div className="flex flex-wrap gap-3">
@@ -421,13 +442,17 @@ function Profile() {
           </div>
         )}
 
-        {/* Posts grid */}
+        {/* Posts grid - limited visibility for non-friends */}
         {activeTab === 'photos' && (
-          posts.length === 0
-            ? <p className="text-neutral-400">No posts yet</p>
-            : <div style={{ columnCount: 4, columnGap: '14px' }}>
-                {posts.map(post => <PostPreview key={post._id} post={post} />)}
-              </div>
+          !isOwnProfile && !isFriend ? (
+            <p className="text-neutral-400">Become friends to see {profile.username}'s posts</p>
+          ) : posts.length === 0 ? (
+            <p className="text-neutral-400">No posts yet</p>
+          ) : (
+            <div style={{ columnCount: 4, columnGap: '14px' }}>
+              {posts.map(post => <PostPreview key={post._id} post={post} />)}
+            </div>
+          )
         )}
 
         {activeTab === 'liked' && (

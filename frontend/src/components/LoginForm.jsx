@@ -41,8 +41,9 @@ function LoginForm() {
     <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-3 w-72">
       {serverError && <span className="text-red-400 text-sm">{serverError}</span>}
 
-      <label className="text-white text-sm font-semibold">Email address</label>
+      <label htmlFor="login-email" className="text-white text-sm font-semibold">Email address</label>
       <input
+        id="login-email"
         type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
@@ -50,8 +51,9 @@ function LoginForm() {
       />
       {errors.email && <span className="text-red-400 text-xs">{errors.email}</span>}
 
-      <label className="text-white text-sm font-semibold">Password</label>
+      <label htmlFor="login-password" className="text-white text-sm font-semibold">Password</label>
       <input
+        id="login-password"
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}

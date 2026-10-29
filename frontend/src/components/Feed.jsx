@@ -35,7 +35,19 @@ function Feed({ feedType = 'global' }) {
   return (
     <div style={{ columnCount: 4, columnGap: '14px', margin: '16px 0' }}>
       {posts.map((post) => (
-        <PostPreview key={post._id} post={post} />
+        post.hidden ? (
+          <div key={post._id} className="break-inside-avoid mb-4 rounded-xl bg-neutral-800 p-4 text-center">
+            <p className="text-neutral-500 text-xs mb-2">This post has been reported multiple times</p>
+            <button
+              onClick={() => window.open(`/post/${post._id}`, '_self')}
+              className="text-xs border border-neutral-600 text-neutral-400 rounded-full px-3 py-1 bg-transparent hover:border-white hover:text-white transition-colors cursor-pointer"
+            >
+              View anyway
+            </button>
+          </div>
+        ) : (
+          <PostPreview key={post._id} post={post} />
+        )
       ))}
     </div>
   )

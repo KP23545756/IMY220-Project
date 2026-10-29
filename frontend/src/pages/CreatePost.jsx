@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext.jsx'
 import Header from '../components/Header.jsx'
@@ -7,12 +7,60 @@ const AVAILABLE_TAGS = ['Birds', 'Trees', 'Rainforest', 'Macro', 'Landscape', 'W
 
 function CreatePostPage() {
   const [imageUrl, setImageUrl] = useState('')
+  const [imagePreview, setImagePreview] = useState('')
   const [description, setDescription] = useState('')
   const [selectedTags, setSelectedTags] = useState([])
   const [errors, setErrors] = useState({})
   const [serverError, setServerError] = useState('')
+  const [isDragging, setIsDragging] = useState(false)
+  const fileInputRef = useRef(null)
   const { token } = useAuth()
   const navigate = useNavigate()
+
+  const processFile = (file) => {
+    if (!file) return
+    if (!file.type.startsWith('image/')) {
+      setServerError('Please upload an image file')
+      return
+    }
+    if (file.size > 2 * 1024 * 1024) {
+      setServerError('Image must be under 2MB')
+      return
+    }
+    setServerError('')
+    const reader = new FileReader()
+    reader.onloadend = () => {
+      setImagePreview(reader.result)
+      setImageUrl(reader.result)
+    }
+    reader.readAsDataURL(file)
+  }
+
+  const handleFileInput = (e) => {
+    processFile(e.target.files[0])
+  }
+
+  const handleDragOver = (e) => {
+    e.preventDefault()
+    setIsDragging(true)
+  }
+
+  const handleDragLeave = (e) => {
+    e.preventDefault()
+    setIsDragging(false)
+  }
+
+  const handleDrop = (e) => {
+    e.preventDefault()
+    setIsDragging(false)
+    const file = e.dataTransfer.files[0]
+    processFile(file)
+  }
+
+  const handleUrlInput = (e) => {
+    setImageUrl(e.target.value)
+    setImagePreview(e.target.value)
+  }
 
   const toggleTag = (tag) => {
     setSelectedTags((prev) =>
@@ -22,7 +70,7 @@ function CreatePostPage() {
 
   const validate = () => {
     const newErrors = {}
-    if (!imageUrl.trim()) newErrors.imageUrl = 'Image URL is required'
+    if (!imageUrl.trim()) newErrors.imageUrl = 'Please upload an image or paste an image URL'
     if (!description.trim()) {
       newErrors.description = 'Description is required'
     } else if (description.trim().length < 10) {
@@ -62,31 +110,68 @@ function CreatePostPage() {
       <main className="max-w-6xl mx-auto px-5 py-5">
         <div className="grid gap-5" style={{ gridTemplateColumns: '1.6fr 1fr' }}>
 
-          <div className="rounded-xl overflow-hidden bg-neutral-800 min-h-96 flex items-center justify-center">
-            {imageUrl ? (
-              <img src={imageUrl} alt="Preview" className="w-full h-full object-cover" />
+          {/* Left: drag and drop upload area */}
+          <div
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+            onDrop={handleDrop}
+            onClick={() => !imagePreview && fileInputRef.current?.click()}
+            className={`rounded-xl overflow-hidden bg-neutral-800 min-h-96 flex items-center justify-center relative transition-colors ${isDragging ? 'border-2 border-green-400 bg-neutral-700' : 'border-2 border-dashed border-neutral-600'} ${!imagePreview ? 'cursor-pointer hover:border-neutral-400' : ''}`}
+          >
+            {imagePreview ? (
+              <>
+                <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
+                <button
+                  type="button"
+                  onClick={(e) => { e.stopPropagation(); setImageUrl(''); setImagePreview('') }}
+                  className="absolute top-3 right-3 bg-black/60 text-white rounded-full w-8 h-8 flex items-center justify-center hover:bg-black/80 cursor-pointer border-0 text-lg"
+                >
+                  ×
+                </button>
+              </>
             ) : (
-              <span className="text-neutral-500">Image preview will appear here</span>
+              <div className="text-center p-8">
+                <p className="text-neutral-400 text-4xl mb-4">↑</p>
+                <p className="text-neutral-300 font-semibold mb-1">
+                  {isDragging ? 'Drop image here' : 'Drag & drop an image here'}
+                </p>
+                <p className="text-neutral-500 text-sm mb-4">or click to browse</p>
+                <p className="text-neutral-600 text-xs">Max 2MB · JPG, PNG, WEBP</p>
+              </div>
             )}
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              onChange={handleFileInput}
+              className="hidden"
+            />
           </div>
 
+          {/* Right: form */}
           <div className="flex flex-col gap-4">
             <h2 className="text-xl font-bold m-0">New Post</h2>
             {serverError && <span className="text-red-400 text-sm">{serverError}</span>}
 
             <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-3">
-              <label className="text-sm font-semibold">Image URL</label>
+
+              {/* URL input as alternative to upload */}
+              <label htmlFor="post-imageurl" className="text-sm font-semibold">
+                Or paste an image URL
+              </label>
               <input
+                id="post-imageurl"
                 type="text"
-                placeholder="Paste a direct image URL..."
-                value={imageUrl}
-                onChange={(e) => setImageUrl(e.target.value)}
+                placeholder="https://..."
+                value={imagePreview?.startsWith('data:') ? '' : imageUrl}
+                onChange={handleUrlInput}
                 className="bg-neutral-800 border border-neutral-600 rounded-full px-4 py-2 text-white text-sm focus:outline-none focus:border-green-400"
               />
               {errors.imageUrl && <span className="text-red-400 text-xs">{errors.imageUrl}</span>}
 
-              <label className="text-sm font-semibold">Description</label>
+              <label htmlFor="post-description" className="text-sm font-semibold">Description</label>
               <textarea
+                id="post-description"
                 placeholder="Describe your photo..."
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}

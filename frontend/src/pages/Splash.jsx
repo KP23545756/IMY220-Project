@@ -34,19 +34,21 @@ function Splash() {
       />
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col min-h-screen p-6">
+            <div className="relative z-10 flex flex-col min-h-screen p-6">
 
-        {/* Headline */}
-        <div className="mt-16 ml-[40%]">
+        {/* Headline — centers inside the glowing panel */}
+        <div className="flex flex-col items-center mt-16">
           <div className="flex items-center gap-4">
-            <img src={logo} alt="Nature, Noticed logo" className="w-24 h-24" />
-            <h1 className="text-6xl font-bold m-0">Nature, Noticed</h1>
+            <img src={logo} alt="Nature, Noticed logo" className="w-16 h-16 md:w-24 md:h-24" />
+            <h1 className="text-4xl md:text-6xl font-bold m-0">Nature, Noticed</h1>
           </div>
-          <p className="text-lg font-semibold mt-2 ml-[5%]">Share the moments most would walk past</p>
+          <p className="text-base md:text-lg font-semibold mt-2 text-center">
+            Share the moments most would walk past
+          </p>
         </div>
 
-        {/* Forms + toggle */}
-        <div className="mt-auto ml-[43%] flex flex-col gap-4 pb-20">
+        {/* Forms + toggle — centered */}
+        <div className="flex flex-col items-center gap-4 mt-auto pb-20">
           {mode === 'signup' ? <SignupForm /> : <LoginForm />}
 
           <div className="flex gap-3">
@@ -65,7 +67,6 @@ function Splash() {
           </div>
         </div>
 
-        {/* Photo credit */}
         <p className="absolute bottom-4 left-4 text-sm z-10 m-0">
           Photographer: Amit Rai
         </p>

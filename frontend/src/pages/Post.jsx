@@ -4,7 +4,15 @@ import { useAuth } from '../context/AuthContext.jsx'
 import Header from '../components/Header.jsx'
 import Comments from '../components/Comments.jsx'
 
-const AVAILABLE_TAGS = ['Birds', 'Trees', 'Rainforest', 'Macro', 'Landscape', 'Wildlife', 'Night Sky']
+const AVAILABLE_TAGS = [
+  'Birds',
+  'Trees',
+  'Rainforest',
+  'Macro',
+  'Landscape',
+  'Wildlife',
+  'Night Sky'
+]
 
 function Post() {
   const { id } = useParams()
@@ -21,6 +29,12 @@ function Post() {
   const [userAlbums, setUserAlbums] = useState([])
   const [showAlbumPicker, setShowAlbumPicker] = useState(false)
   const [albumMessage, setAlbumMessage] = useState('')
+  const [showReportModal, setShowReportModal] = useState(false)
+  const [reportReason, setReportReason] = useState('')
+  const [reportMessage, setReportMessage] = useState('')
+  const [postAlbums, setPostAlbums] = useState([])
+  const [reportReasons, setReportReasons] = useState([])
+  const [customReportReason, setCustomReportReason] = useState('')
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -46,7 +60,7 @@ function Post() {
     if (!user) return
     const fetchAlbums = async () => {
       try {
-        const res = await fetch(`/api/albums/user/${user.id}`, {
+        const res = await fetch(`/api/albums/containing/${id}`, {
           headers: { Authorization: `Bearer ${token}` }
         })
         const data = await res.json()
@@ -57,6 +71,35 @@ function Post() {
     }
     fetchAlbums()
   }, [user])
+
+  useEffect(() => {
+    if (!post || !token) return
+    const fetchPostAlbums = async () => {
+      try {
+        const res = await fetch(`/api/albums/containing/${id}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        })
+        const data = await res.json()
+        if (res.ok) setPostAlbums(data)
+      } catch (err) {
+        console.error('Failed to fetch post albums:', err)
+      }
+    }
+    fetchPostAlbums()
+  }, [post])
+
+  useEffect(() => {
+    const fetchReasons = async () => {
+      try {
+        const res = await fetch('/api/report-reasons')
+        const data = await res.json()
+        if (res.ok) setReportReasons(data.map(r => r.reason))
+      } catch (err) {
+        console.error('Failed to fetch report reasons:', err)
+      }
+    }
+    fetchReasons()
+  }, [])
 
   const handleLike = async () => {
     try {
@@ -107,8 +150,8 @@ function Post() {
   }
 
   const handleReport = async () => {
-    const reason = window.prompt('Reason for reporting this post:')
-    if (!reason) return
+    const finalReason = reportReason === 'Other' ? customReportReason : reportReason
+    if (!finalReason.trim()) return
     try {
       await fetch(`/api/posts/${id}/report`, {
         method: 'POST',
@@ -116,9 +159,12 @@ function Post() {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`
         },
-        body: JSON.stringify({ reason })
+        body: JSON.stringify({ reason: finalReason })
       })
-      alert('Post reported')
+      setReportMessage('Post reported successfully')
+      setShowReportModal(false)
+      setReportReason('')
+      setCustomReportReason('')
     } catch (err) {
       console.error('Report failed:', err)
     }
@@ -206,8 +252,11 @@ function Post() {
 
             {/* Author row */}
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-neutral-700 flex items-center justify-center text-white font-semibold flex-shrink-0">
-                {post.author?.username?.[0]?.toUpperCase()}
+              <div className="w-10 h-10 rounded-full bg-neutral-700 flex items-center justify-center text-white font-semibold flex-shrink-0 overflow-hidden">
+                {post.author?.profilePicture
+                  ? <img src={post.author.profilePicture} alt={post.author.username} className="w-full h-full object-cover" />
+                  : post.author?.username?.[0]?.toUpperCase()
+                }
               </div>
               <div>
                 <p
@@ -265,11 +314,29 @@ function Post() {
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {post.tags?.map(tag => (
-                    <span key={tag} className="border border-white rounded-full px-3 py-1 text-xs text-white">
+                    <span
+                      key={tag}
+                      onClick={() => navigate(`/search?q=${encodeURIComponent(tag)}`)}
+                      className="border border-white rounded-full px-3 py-1 text-xs text-white cursor-pointer hover:bg-white hover:text-black transition-colors"
+                    >
                       {tag}
                     </span>
                   ))}
                 </div>
+                {postAlbums.length > 0 && (
+                  <div className="flex flex-wrap gap-2 items-center">
+                    <span className="text-neutral-400 text-xs">In albums:</span>
+                    {postAlbums.map(album => (
+                      <span
+                        key={album._id}
+                        onClick={() => navigate(`/album/${album._id}`)}
+                        className="text-xs border border-neutral-600 rounded-full px-3 py-1 text-neutral-300 cursor-pointer hover:border-white hover:text-white transition-colors"
+                      >
+                        {album.name}
+                      </span>
+                    ))}
+                  </div>
+                )}
               </>
             )}
 
@@ -291,7 +358,7 @@ function Post() {
                 + Album
               </button>
               <button
-                onClick={handleReport}
+                onClick={() => setShowReportModal(true)}
                 className="border border-neutral-600 text-neutral-400 rounded-full px-4 py-1 text-sm bg-transparent hover:border-red-400 hover:text-red-400 transition-colors cursor-pointer"
               >
                 Report
@@ -327,6 +394,54 @@ function Post() {
             )}
             {albumMessage && (
               <p className="text-neutral-400 text-xs m-0">{albumMessage}</p>
+            )}
+
+            {/* Report modal */}
+            {showReportModal && (
+              <div className="bg-neutral-800 rounded-xl p-4 flex flex-col gap-3">
+                <p className="m-0 font-semibold text-sm">Report this post</p>
+                <div className="flex flex-col gap-2">
+                  {reportReasons.map(reason => (
+                    <button
+                      key={reason}
+                      type="button"
+                      onClick={() => {
+                        setReportReason(reason)
+                      }}
+                      className={`rounded-full px-4 py-1 text-sm border cursor-pointer transition-colors text-left ${reportReason === reason && reason !== 'Other' ? 'bg-white text-black border-white' : 'bg-transparent text-white border-neutral-600 hover:border-white'}`}
+                    >
+                      {reason}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Custom reason text box when Other is selected */}
+                {reportReason === 'Other' && (
+                  <input
+                    type="text"
+                    placeholder="Describe your reason..."
+                    value={customReportReason}
+                    onChange={e => setCustomReportReason(e.target.value)}
+                    className="bg-neutral-700 border border-neutral-600 rounded-full px-4 py-2 text-white text-sm focus:outline-none focus:border-green-400"
+                  />
+                )}
+
+                <div className="flex gap-2">
+                  <button
+                    onClick={handleReport}
+                    disabled={!reportReason || (reportReason === 'Other' && !customReportReason.trim())}
+                    className="border border-red-400 text-red-400 rounded-full px-4 py-1 text-sm bg-transparent hover:bg-red-400 hover:text-white transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-default"
+                  >
+                    Submit Report
+                  </button>
+                  <button
+                    onClick={() => { setShowReportModal(false); setReportReason(''); setCustomReportReason('') }}
+                    className="border border-neutral-600 text-neutral-400 rounded-full px-4 py-1 text-sm bg-transparent hover:border-white hover:text-white transition-colors cursor-pointer"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
             )}
 
             {/* Owner actions */}
